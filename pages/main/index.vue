@@ -6,14 +6,23 @@
 </template>
 
 <script>
-import L from 'leaflet'
+import L, { marker } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
+import axios from 'axios'
 
 export default {
   components: {
   },
+  data: function(){
+    return {map: null}
+  },
   mounted() {
     this.initializeMap()
+    this.axiosGeojson()
+    .then((val) => {
+      const data = this.extractData(val)
+      this.addMarker(data)
+    })
   },
   methods: {
     initializeMap (){
@@ -37,6 +46,48 @@ le()});
         attribution: '&copy; <a href="//osm.org/copyright">OpenStreetMap</a> contributors'
       });
       osmtile.addTo(map)
+      this.map = map;
+    },
+    async fetchGeojson() {
+      fetch("http://localhost:3000/map.geojson", {
+        mode: 'cors'
+      }).then((content) => {
+        console.log(content.data)
+        return content.data;
+      })
+    },
+    async axiosGeojson() {
+      let data = null
+      await axios.get("http://localhost:3000/map.geojson")
+      .then((content) => {
+        console.log(content.data)
+        data = content.data;
+      })
+      .catch(() => {
+        console.log("failed to fetch json")
+      })
+      return data;
+    },
+    extractData(json) {
+      const array = json.features
+      let ret_array = []
+      for(let el of array){
+        let temp_dict = {}
+        temp_dict["id"] = el.properties.id;
+        temp_dict["coordinates"] = el.geometry.coordinates;
+        ret_array.push(temp_dict)
+      }
+      return ret_array
+    },
+    addMarker(data) {
+      console.log(data)
+      const markers = []
+      for(let el of data){
+        const marker = L.marker([el.coordinates[1],el.coordinates[0]])
+        markers.push(marker)
+      }
+      const markerGroup = L.featureGroup(markers)
+      markerGroup.addTo(this.map)
     },
   },
 }
