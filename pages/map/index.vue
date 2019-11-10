@@ -9,16 +9,20 @@
 import L, { marker } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import axios from 'axios'
+import util from '../../assets/util'
 
 export default {
   components: {
   },
   data: function(){
-    return {map: null}
+    return {
+      map: null,
+      url: "http://localhost:3000/map.geojson"
+    }
   },
   mounted() {
     this.initializeMap()
-    this.axiosGeojson()
+    util.axiosJson(this.url)
     .then((val) => {
       const data = this.extractData(val)
       this.addMarker(data)
@@ -36,8 +40,7 @@ export default {
       });
       const mapObj = document.getElementById('map')
       // フォーカスしたらズームできるようになる
-      mapObj.addEventListener("focus", () => {map.scrollWheelZoom.enab
-le()});
+      mapObj.addEventListener("focus", () => {map.scrollWheelZoom.enable()});
       // フォーカスはずれたらズームできなくする
       mapObj.addEventListener("blur", () => {map.scrollWheelZoom.disable()});
 
@@ -48,20 +51,28 @@ le()});
       osmtile.addTo(map)
       this.map = map;
     },
-    async fetchGeojson() {
-      fetch("http://localhost:3000/map.geojson", {
+    async fetchJson(url) {
+      let data = null
+      fetch(url, {
         mode: 'cors'
       }).then((content) => {
         console.log(content.data)
-        return content.data;
+        data = content.data;
       })
+      .catch(() => {
+        console.log("failed to fetch json")
+      })
+      return data;
     },
-    async axiosGeojson() {
+    async axiosJson(url) {
       let data = null
-      await axios.get("http://localhost:3000/map.geojson")
+      await axios.get(url)
       .then((content) => {
         console.log(content.data)
         data = content.data;
+      })
+      .catch(() => {
+        console.log("failed to fetch json")
       })
       .catch(() => {
         console.log("failed to fetch json")
