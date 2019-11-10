@@ -1,0 +1,32 @@
+[
+    {
+        "id":"92",
+        "name":"a",
+        "info":"kamoshika",
+        "type":"food"
+    },
+    {
+        "id":"93",
+        "name":"b",
+        "info":"",
+        "type":"food"
+    },
+    {
+        "id":"94",
+        "name":"c",
+        "info":"",
+        "type":"food"
+    },
+    {
+        "id":"95",
+        "name":"d",
+        "info":"",
+        "type":"food"
+    },
+    {
+        "id":"1000",
+        "name":"infomation center",
+        "info":"インフォメーションセンター",
+        "type":"other"
+    }
+]
