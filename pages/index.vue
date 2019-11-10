@@ -13,17 +13,31 @@ export default {
   },
   data: function(){
     return {
-      url: "http://localhost:3000/id2info.json"
+      url: "http://localhost:3000/id2info.json",
+      itemList_: null,
+      fields: ["id","name",'show_details'],
+    }
+  },
+  computed: {
+    itemList: {
+      get: function(){
+        return this.itemList_
+      },
+      set: function(newVal){
+        this.itemList_ = newVal
+      }
     }
   },
   mounted() {
-    util.axiosJson(this.url)
-    .then((val) => {
-      console.log(val)
-    })
+    this.loadList()
   },
   methods: {
-
+    loadList (){
+      util.axiosJson(this.url)
+      .then((val) => {
+        this.itemList = val
+      })
+    }
   }
 }
 </script>
