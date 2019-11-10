@@ -1,7 +1,29 @@
 <template>
   <div class="container">
-    <div>
-    </div>
+    <b-table :items="this.itemList" :fields="this.fields" striped responsive="sm">
+      <template v-slot:cell(show_details)="row">
+        <b-button size="sm" @click="row.toggleDetails" class="mr-2">
+          {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
+        </b-button>
+      </template>
+      <template v-slot:row-details="row">
+        <b-card>
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>Type:</b></b-col>
+            <b-col>{{ row.item.type }}</b-col>
+          </b-row>
+
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right"><b>Info:</b></b-col>
+            <b-col>{{ row.item.info }}</b-col>
+          </b-row>
+
+          <!-- <b-button size="sm"><nuxt-link :to="{ path: 'map', query: {id: row.item.id} }">マップ</nuxt-link></b-button> -->
+          <b-button size="sm" :to="{ path: 'map', query: {id: row.item.id} }">マップ</b-button>
+          <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
+        </b-card>
+      </template>
+    </b-table>
   </div>
 </template>
 

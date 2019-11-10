@@ -1,8 +1,11 @@
 <template>
   <section class="container">
-        <div id="map">
-        </div>
-    </section>
+    <div id="map">
+    </div>
+    <div>
+      <b-button @click="this.addRouting">経路探索</b-button>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -18,19 +21,21 @@ export default {
   },
   data: function(){
     return {
+      id: 0,
       map: null,
       url: "http://localhost:3000/map.geojson"
     }
   },
   mounted() {
+    this.setID()
     this.initializeMap()
-    util.axiosJson(this.url)
-    .then((val) => {
-      const data = this.extractData(val)
-      this.addMarker(data)
-    })
+    this.markerProcess()
+    // this.addRouting()
   },
   methods: {
+    setID (){
+      this.id = this.$route.query.id
+    },
     initializeMap (){
       //leaflet initialize
       const map = L.map('map', {
@@ -53,51 +58,32 @@ export default {
       osmtile.addTo(map)
       this.map = map;
     },
-    async fetchJson(url) {
-      let data = null
-      fetch(url, {
-        mode: 'cors'
-      }).then((content) => {
-        console.log(content.data)
-        data = content.data;
+    markerProcess() {
+      util.axiosJson(this.url)
+      .then((val) => {
+        const data = this.extractData(val)
+        this.addMarker(data)
       })
-      .catch(() => {
-        console.log("failed to fetch json")
-      })
-      return data;
-    },
-    async axiosJson(url) {
-      let data = null
-      await axios.get(url)
-      .then((content) => {
-        console.log(content.data)
-        data = content.data;
-      })
-      .catch(() => {
-        console.log("failed to fetch json")
-      })
-      .catch(() => {
-        console.log("failed to fetch json")
-      })
-      return data;
     },
     extractData(json) {
       const array = json.features
       let ret_array = []
       for(let el of array){
         let temp_dict = {}
-        temp_dict["id"] = el.properties.id;
+        temp_dict["id"] = el.properties.id.toString();
         temp_dict["coordinates"] = el.geometry.coordinates;
         ret_array.push(temp_dict)
       }
       return ret_array
     },
     addMarker(data) {
-      console.log(data)
       const markers = []
       for(let el of data){
-        const marker = L.marker([el.coordinates[1],el.coordinates[0]])
-        markers.push(marker)
+        if(el.id === this.id){
+          const marker = L.marker([el.coordinates[1],el.coordinates[0]])
+          marker.bindPopup(el.id)
+          markers.push(marker)
+        }
       }
       const markerGroup = L.featureGroup(markers)
       markerGroup.addTo(this.map)
