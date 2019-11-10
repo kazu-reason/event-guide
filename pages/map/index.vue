@@ -9,7 +9,9 @@
 import L, { marker } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import axios from 'axios'
-import util from '../../assets/util'
+import 'leaflet-routing-machine'
+import 'leaflet-routing-machine/dist/leaflet-routing-machine.css'
+import util from 'assets/util'
 
 export default {
   components: {
@@ -99,6 +101,15 @@ export default {
       }
       const markerGroup = L.featureGroup(markers)
       markerGroup.addTo(this.map)
+    },
+    addRouting() {
+      L.Routing.control({
+        waypoints: [
+          L.latLng(34.686272260741994, 133.91997635364532),
+          L.latLng(34.68750073068877, 133.92055839300156)
+        ],
+        routeWhileDragging: false
+      }).addTo(this.map)
     },
   },
 }
