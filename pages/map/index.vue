@@ -30,7 +30,7 @@ export default {
       id: 0,
       map: null,
       coords: [0,0],
-      url: "http://localhost:3000/map.geojson",
+      url: "https://kazu-reason.github.io/event-guide/map.geojson",
       rootGuideUrl: null
     }
   },
