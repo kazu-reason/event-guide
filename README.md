@@ -1,6 +1,7 @@
 # event-guide
 
-> My dandy Nuxt.js project
+> 学祭などのイベントの出店リストをウェブで提供するアプリケーション．
+> 現在は、テストとして学祭の出店リストのみの表示に対応．
 
 ## Build Setup
 
