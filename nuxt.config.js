@@ -13,7 +13,6 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/event-guide/favicon.ico' },
-      { rel: 'icon', type: 'image/png', href: '/event-guide/_nuxt/img/2273e3d.png' }
     ]
   },
   router: {

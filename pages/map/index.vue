@@ -89,11 +89,20 @@ export default {
       return ret_array
     },
     addMarker(data) {
+      const myIcon = L.icon({
+          iconUrl: '../../static/marker-icon.png',
+          iconSize: [38, 95],
+          iconAnchor: [22, 94],
+          popupAnchor: [-3, -76],
+          shadowUrl: '../../static/marker-shadow.png',
+          shadowSize: [68, 95],
+          shadowAnchor: [22, 94]
+      });
       const markers = []
       for(let el of data){
         if(el.id === this.id){
           this.coords = [el.coordinates[1],el.coordinates[0]]
-          const marker = L.marker(this.coords)
+          const marker = L.marker(this.coords, {icon: myIcon})
           marker.bindPopup(el.id)
           markers.push(marker)
         }
