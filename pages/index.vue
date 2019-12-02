@@ -1,37 +1,22 @@
 <template>
   <div class="container">
-    <b-table :items="this.itemList" :fields="this.fields" striped responsive="sm">
-      <template v-slot:cell(show_details)="row">
-        <b-button size="sm" @click="row.toggleDetails" class="mr-2">
-          {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
-        </b-button>
-      </template>
-      <template v-slot:row-details="row">
-        <b-card>
-          <b-row class="mb-2">
-            <b-col sm="3" class="text-sm-right"><b>Type:</b></b-col>
-            <b-col>{{ row.item.type }}</b-col>
-          </b-row>
-
-          <b-row class="mb-2">
-            <b-col sm="3" class="text-sm-right"><b>Info:</b></b-col>
-            <b-col>{{ row.item.info }}</b-col>
-          </b-row>
-
-          <!-- <b-button size="sm"><nuxt-link :to="{ path: 'map', query: {id: row.item.id} }">マップ</nuxt-link></b-button> -->
-          <b-button size="sm" :to="{ path: 'map', query: {id: row.item.id} }">マップ</b-button>
-          <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
-        </b-card>
-      </template>
-    </b-table>
+    <h1>event-guide DEMO</h1>
+    <div>
+      <Logo></Logo>
+    </div>
+    <div class="text-center">
+      <nuxt-link to="/tabpage">施設・バザーリスト</nuxt-link>
+    </div>
   </div>
 </template>
 
 <script>
 import util from '../assets/util'
+import Logo from '../components/Logo'
 
 export default {
   components: {
+    Logo
   },
   data: function(){
     return {
@@ -51,7 +36,6 @@ export default {
     }
   },
   mounted() {
-    this.loadList()
   },
   methods: {
     loadList (){
@@ -69,6 +53,7 @@ export default {
   margin: 0 auto;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -94,5 +79,9 @@ export default {
 
 .links {
   padding-top: 15px;
+}
+
+#table-transition-1s .flip-list-move {
+  transition: transform 1s;
 }
 </style>
