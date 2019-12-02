@@ -90,11 +90,11 @@ export default {
     },
     addMarker(data) {
       const myIcon = L.icon({
-          iconUrl: '../../static/marker-icon.png',
+          iconUrl: 'https://kazu-reason.github.io/event-guide/marker-icon.png',
           iconSize: [38, 95],
           iconAnchor: [22, 94],
           popupAnchor: [-3, -76],
-          shadowUrl: '../../static/marker-shadow.png',
+          shadowUrl: 'https://kazu-reason.github.io/event-guide/marker-shadow.png',
           shadowSize: [68, 95],
           shadowAnchor: [22, 94]
       });
