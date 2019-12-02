@@ -3,8 +3,14 @@
     <div id="map">
     </div>
     <div>
-      <b-button @click="this.addRouting">経路探索</b-button>
+      <!-- <b-button @click="this.onRootGuideClick">経路探索</b-button> -->
+      <b-button v-b-modal.modal-1>経路探索</b-button>
     </div>
+    <b-modal id="modal-1" title="経路探索" ok-only>
+      <p class="my-4">経路探索は現在使用できません</p>
+    </b-modal>
+
+    <nuxt-link to="/">Top Pageへ</nuxt-link>
   </section>
 </template>
 
@@ -23,18 +29,24 @@ export default {
     return {
       id: 0,
       map: null,
-      url: "http://localhost:3000/map.geojson"
+      coords: [0,0],
+      url: "http://localhost:3000/map.geojson",
+      rootGuideUrl: null
+    }
+  },
+  watch: {
+    coords : function (newval, oldval){
+      this.rootGuideUrl = `http://maps.google.com/maps?saddr=&daddr=${newval[0]},${newval[1]}&dirflg=w`
     }
   },
   mounted() {
     this.setID()
     this.initializeMap()
     this.markerProcess()
-    // this.addRouting()
   },
   methods: {
     setID (){
-      this.id = this.$route.query.id
+      this.id = this.$route.query.id.toString()
     },
     initializeMap (){
       //leaflet initialize
@@ -80,7 +92,8 @@ export default {
       const markers = []
       for(let el of data){
         if(el.id === this.id){
-          const marker = L.marker([el.coordinates[1],el.coordinates[0]])
+          this.coords = [el.coordinates[1],el.coordinates[0]]
+          const marker = L.marker(this.coords)
           marker.bindPopup(el.id)
           markers.push(marker)
         }
@@ -97,6 +110,9 @@ export default {
         routeWhileDragging: false
       }).addTo(this.map)
     },
+    onRootGuideClick () {
+        location.href = this.rootGuideUrl
+    }
   },
 }
 </script>
