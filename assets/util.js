@@ -22,9 +22,6 @@ async function axiosJson(url) {
     .catch(() => {
         console.log("failed to fetch json")
     })
-    .catch(() => {
-        console.log("failed to fetch json")
-    })
     return data;
 }
 
