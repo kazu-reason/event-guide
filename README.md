@@ -3,6 +3,8 @@
 > 学祭などのイベントの出店リストをウェブで提供するアプリケーション．
 > 現在は、テストとして学祭の出店リストのみの表示に対応．
 
+表示例：https://kazu-reason.github.io/event-guide/
+
 ## Build Setup
 
 ``` bash
