@@ -92,14 +92,10 @@ export default {
       return ret_array
     },
     addMarker(data) {
-      const myIcon = L.icon({
-          iconUrl: this.mapIconUrl,
-      });
       const markers = []
       for(let el of data){
         if(el.id === this.id){
           this.coords = [el.coordinates[1],el.coordinates[0]]
-          // const marker = L.marker(this.coords, {icon: myIcon})
           const marker = L.marker(this.coords)
           marker.bindPopup(el.id)
           markers.push(marker)
