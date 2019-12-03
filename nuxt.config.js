@@ -18,6 +18,9 @@ export default {
   router: {
     base: '/event-guide/'
   },
+  env: {
+    baseUrl: process.env.NODE_ENV === "production" ? "https://kazu-reason.github.io/event-guide/" : 'http://localhost:3000/event-guide/'
+  },
   /*
   ** Customize the progress-bar color
   */

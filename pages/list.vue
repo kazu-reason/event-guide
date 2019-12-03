@@ -36,7 +36,7 @@ export default {
   props: ['listData'],
   data: function(){
     return {
-      url: "http://localhost:3000/id2info.json",
+      // url: "/id2info.json",
       itemList_: this.listData,
       fields: ["id","small","menu", 'show_details'],
     }

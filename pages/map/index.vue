@@ -30,7 +30,9 @@ export default {
       id: 0,
       map: null,
       coords: [0,0],
-      url: "https://kazu-reason.github.io/event-guide/map.geojson",
+      url: "/map.geojson",
+      mapIconUrl: "/marker-icon.png",
+      mapIconShadowUrl: "/marker-shadow.png",
       rootGuideUrl: null
     }
   },
@@ -40,6 +42,7 @@ export default {
     }
   },
   mounted() {
+    L.Icon.Default.prototype.options.imagePath = process.env.baseUrl
     this.setID()
     this.initializeMap()
     this.markerProcess()
@@ -90,19 +93,14 @@ export default {
     },
     addMarker(data) {
       const myIcon = L.icon({
-          iconUrl: 'https://kazu-reason.github.io/event-guide/marker-icon.png',
-          iconSize: [38, 95],
-          iconAnchor: [22, 94],
-          popupAnchor: [-3, -76],
-          shadowUrl: 'https://kazu-reason.github.io/event-guide/marker-shadow.png',
-          shadowSize: [68, 95],
-          shadowAnchor: [22, 94]
+          iconUrl: this.mapIconUrl,
       });
       const markers = []
       for(let el of data){
         if(el.id === this.id){
           this.coords = [el.coordinates[1],el.coordinates[0]]
-          const marker = L.marker(this.coords, {icon: myIcon})
+          // const marker = L.marker(this.coords, {icon: myIcon})
+          const marker = L.marker(this.coords)
           marker.bindPopup(el.id)
           markers.push(marker)
         }

@@ -1,5 +1,9 @@
 import axios from 'axios'
 
+const axiosInstance = axios.create({
+    baseURL:process.env.baseUrl
+})
+
 async function fetchJson(url) {
     let data = null
     fetch(url, {
@@ -15,7 +19,7 @@ async function fetchJson(url) {
 
 async function axiosJson(url) {
     let data = null
-    await axios.get(url)
+    await axiosInstance.get(url)
     .then((content) => {
         data = content.data;
     })

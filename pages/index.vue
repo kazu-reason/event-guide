@@ -20,7 +20,7 @@ export default {
   },
   data: function(){
     return {
-      url: "http://localhost:3000/id2info.json",
+      // url: "/id2info.json",
       itemList_: null,
       fields: ["id","name",'show_details'],
     }

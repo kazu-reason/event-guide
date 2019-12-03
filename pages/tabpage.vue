@@ -25,8 +25,8 @@ export default {
     },
     data: function(){
     return {
-      // url: "http://localhost:3000/id2infov2.json",
-      url: "https://kazu-reason.github.io/event-guide/store_list.json",
+      // url: "/id2infov2.json",
+      url: "/store_list.json",
       itemList_: null,
       itemKeys: null,
       dataLoaded: false,
