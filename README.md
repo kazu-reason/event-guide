@@ -8,6 +8,9 @@
 ## Build Setup
 
 ``` bash
+# clone this repository
+$ git clone https://github.com/kazu-reason/event-guide.git
+
 # install dependencies
 $ npm run install
 
