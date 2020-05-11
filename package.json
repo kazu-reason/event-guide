@@ -12,12 +12,14 @@
     "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.0",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.13.0",
     "leaflet": "^1.6.0",
     "leaflet-routing-machine": "^3.2.12",
+    "leaflet.locatecontrol": "^0.72.0",
     "nuxt": "^2.12.2"
   },
   "devDependencies": {

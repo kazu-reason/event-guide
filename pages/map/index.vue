@@ -20,6 +20,10 @@ import 'leaflet/dist/leaflet.css'
 import axios from 'axios'
 import 'leaflet-routing-machine'
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css'
+import 'leaflet.locatecontrol/dist/L.Control.Locate.min.js'
+import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
+
 import util from 'assets/util'
 
 export default {
@@ -45,6 +49,7 @@ export default {
     L.Icon.Default.prototype.options.imagePath = process.env.baseUrl
     this.setID()
     this.initializeMap()
+    this.addLocale()
     this.markerProcess()
   },
   methods: {
@@ -72,6 +77,19 @@ export default {
       });
       osmtile.addTo(map)
       this.map = map;
+    },
+    addLocale() {
+      var option = {
+        position: 'topleft',
+        strings: {
+            title: "現在地を表示",
+            popup: "現在地"
+        },
+        locateOptions: {
+          maxZoom: 16
+        }
+      }
+      L.control.locate(option).addTo(this.map)
     },
     markerProcess() {
       util.axiosJson(this.url)
@@ -115,7 +133,7 @@ export default {
     },
     onRootGuideClick () {
         location.href = this.rootGuideUrl
-    }
+    },
   },
 }
 </script>
