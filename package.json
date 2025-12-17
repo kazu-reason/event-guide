@@ -20,7 +20,7 @@
     "leaflet": "^1.6.0",
     "leaflet-routing-machine": "^3.2.12",
     "leaflet.locatecontrol": "^0.72.0",
-    "nuxt": "^2.15.8"
+    "nuxt": "^4.2.2"
   },
   "devDependencies": {
     "push-dir": "^0.4.1"
